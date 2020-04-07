@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <!--[if lt IE 9]>
+    <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="">
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <style>
+      pre {
+        background-color: black;
+        color: white;
+      }
+      iframe {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Onsen UIの使い方を学びましょう</h1>
+    <p>まずはOnsen UIを使うのに必要なCSS、JavaScriptのタグをHTMLに追加します。実行ボタンを押してください（HTMLの内容がないので、真っ白いウィンドウだけが表示されます）。</p>
+    <pre>
+      <code data-type="html" data-id="1">
+        &lt;link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css"&gt;
+        &lt;link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css"&gt;
+        &lt;script src="https://unpkg.com/onsenui/js/onsenui.min.js"&gt;&lt;/script&gt;
+      </code>
+    </pre>
+    <button class="exec" data-id="1">実行</button>
+    <div class="res" data-id="1"></div>
+    <p>では次に試しにボタンを配置してみましょう。 &lt;ons-button&gt; というタグを使います。このタグを使うだけで、スマートフォンっぽいボタンが配置できます。実行ボタンを押してみましょう。</p>
+    <pre>
+      <code data-type="html" data-id="2">
+        &lt;ons-button onclick="alert('Hello World!')"&gt;Click Me&lt;/ons-button&gt;
+      </code>
+    </pre>
+    <button class="exec" data-id="2">実行</button>
+    <p>ボタンが表示されましたか？表示されたら、Click Meを押してみましょう。Hello World! というアラートが確認できるはずです。</p>
+    <button class="remove" data-id="2">消去</button>
+    <div class="res" data-id="2"></div>
+
+
+    <h2>ナビゲーションを体験する</h2>
+    <p>では次にアプリっぽいUIを実現するのに欠かせないナビゲーションを使ってみましょう。これは &lt;ons-navigator /&gt; タグを使います。</p>
+    <p>以下のコードを実行してみましょう。まだナビゲーション用のJavaScriptコードは記述していないので動きませんので注意してください。</p>
+    <pre>
+      <code data-type="html" data-id="3">
+        &lt;ons-navigator swipeable id="myNavigator" page="page1.html"&gt;&lt;/ons-navigator&gt;
+
+&lt;template id="page1.html"&gt;
+  &lt;ons-page id="page1"&gt;
+    &lt;ons-toolbar&gt;
+      &lt;div class="center"&gt;Page 1&lt;/div&gt;
+    &lt;/ons-toolbar&gt;
+
+    &lt;p&gt;This is the first page.&lt;/p&gt;
+
+    &lt;ons-button id="push-button"&gt;Push page&lt;/ons-button&gt;
+  &lt;/ons-page&gt;
+&lt;/template&gt;
+
+&lt;template id="page2.html"&gt;
+  &lt;ons-page id="page2"&gt;
+    &lt;ons-toolbar&gt;
+      &lt;div class="left"&gt;&lt;ons-back-button&gt;Page 1&lt;/ons-back-button&gt;&lt;/div&gt;
+      &lt;div class="center"&gt;&lt;/div&gt;
+    &lt;/ons-toolbar&gt;
+
+    &lt;p&gt;This is the second page.&lt;/p&gt;
+  &lt;/ons-page&gt;
+&lt;/template&gt;
+      </code>
+    </pre>
+    <button class="exec" data-id="3">実行</button>
+    <button class="remove" data-id="3">消去</button>
+    <div class="res" data-id="3"></div>
+
+    <p>では最後にナビゲーション用のJavaScriptを紹介します。以下のようなコードで動きます。早速実行ボタンを押してみましょう。</p>
+    <pre>
+      <code data-type="script" data-id="4">
+        document.addEventListener('init', function(event) {
+          var page = event.target;
+          if (page.id === 'page1') {
+            page.querySelector('#push-button').onclick = function() {
+              document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
+            };
+          } else if (page.id === 'page2') {
+            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+          }
+        });
+
+      </code>
+    </pre>
+    <button class="exec" data-id="4">実行</button>
+    <div class="res" data-id="4"></div>
+    <p>表示されたら、Push pageボタンを押してみましょう。ちゃんと画面遷移するのが分かりましたか？</p>
+    <script src="app.js"></script>
+  </body>
+</html>
